@@ -1,8 +1,9 @@
-from googletrans import Translator
 import random
-import nltk, string
-from sklearn.feature_extraction.text import TfidfVectorizer
+import string
 
+import nltk
+from googletrans import Translator
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 LANGUAGES = {
     "af": "Afrikaans",
@@ -61,51 +62,60 @@ LANGUAGES = {
     "yi": "Yiddish",
 }
 
-
-nltk.download('punkt')
-stemmer = nltk.stem.porter.PorterStemmer()
+# Uncomment if you need punctuation corpora
+# nltk.download('punkt')
+word_stemmer = nltk.stem.porter.PorterStemmer()
 remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
 
+
 def stem_tokens(tokens):
-    return [stemmer.stem(item) for item in tokens]
+    return [word_stemmer.stem(item) for item in tokens]
+
 
 def normalize(text):
     return stem_tokens(nltk.word_tokenize(text.lower().translate(remove_punctuation_map)))
 
-vectorizer = TfidfVectorizer(tokenizer=normalize, stop_words='english')
+tfidf_vectorizer = TfidfVectorizer(tokenizer=normalize, stop_words='english')
+
 
 def cosine_sim(text1, text2):
-    tfidf = vectorizer.fit_transform([text1, text2])
-    return ((tfidf * tfidf.T).A)[0,1]
+    try:
+        tfidf = tfidf_vectorizer.fit_transform([text1, text2])
+        return ((tfidf * tfidf.T).A)[0, 1]
+    except ValueError:
+        print("The string cannot be translated since it only contains stopwords (no proper meaning)")
+        return 0
 
 
 def main():
     trans_langs = []
-    translator   = Translator()
+    translator = Translator()
     trans_string = input("Enter a string which you want to translate: ")
     trans_detect = translator.detect(trans_string)
-    print("The language of the entered string was detected as {}".format(LANGUAGES[trans_detect.lang]))
+    print("The language of the entered string was detected as {}".format(
+        LANGUAGES[trans_detect.lang]))
     try:
         trans_degree = int(input("Enter the number of times to translate: "))
-    except:
+    except ValueError:
         print("You entered a string and not an integer, Which wasn't expected, and now you're here reading this. Congratulations, you played yourself!")
     if trans_degree > 52:
         print("52 is the maximum number languages you can translate to.\nContinuing with 'number of times to translate : 52'")
         trans_degree = 52
-    trans_langs  = random.sample(list(LANGUAGES), trans_degree)
-    curr_lang    = trans_detect.lang
-    curr_string  = trans_string
+    trans_langs = random.sample(list(LANGUAGES), trans_degree)
+    curr_lang = trans_detect.lang
+    curr_string = trans_string
     for language in trans_langs:
         print("{} to {}".format(LANGUAGES[curr_lang], LANGUAGES[language]))
-        translation = translator.translate(curr_string, dest = language)
+        translation = translator.translate(curr_string, dest=language)
         print("{} -> {}\n".format(curr_string, translation.text))
         curr_lang = language
         curr_string = translation.text
-    print("{} to {}".format(LANGUAGES[curr_lang], LANGUAGES[trans_detect.lang]))
-    translation = translator.translate(curr_string, dest = trans_detect.lang)
+    print("{} to {}".format(
+        LANGUAGES[curr_lang], LANGUAGES[trans_detect.lang]))
+    translation = translator.translate(curr_string, dest=trans_detect.lang)
     print("{} -> {}\n".format(curr_string, translation.text))
-    print("Similarity between start and end: {}".format(cosine_sim(trans_string, translation.text)))
-
+    print("Similarity between start and end: {}".format(
+        cosine_sim(trans_string, translation.text)))
 
 
 if __name__ == '__main__':
