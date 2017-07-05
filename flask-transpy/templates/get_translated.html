@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>TransPy | Loss of Translation</title>
+
+
+  <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+  <link href="../static/translate.css" rel="stylesheet">
+
+  <!-- jquery links -->
+  <script src="../static/js/jquery.min.js"></script>
+  <script src="../static/js/translate.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="text-center header">
+      <h3>TransPy</h3>
+    </div>
+
+    <div class="jumbotron">
+      <p>
+        Enter a string to translate, and the number of times you want the string to be translated.
+      </p>
+      <form name="translate_form" class="form-translate">
+        <label for="inputString" class="sr-only">Enter a string to translate</label>
+        <input type="name" name="inputString" id="inputString" class="form-control" placeholder="Enter a string to translate" required autofocus>
+        <label for="inputIter" class="sr-only">Number of Translations</label>
+        <input type="number" name="inputIter" id="inputIter" class="form-control" placeholder="Number of Translations (max. 52)" required>
+        <button id="btnTrans" class="btn btn-lg btn-primary btn-block" type="button" href="{{ url_for('translateText') }}">Translate</button>
+      </form>
+    </div>
+    <div id="loader" style="display: none;"></div>
+    <div id="alert" class="alert alert-danger" style="display: none;">
+      <strong>Error!</strong> Please fill up all the fields before sending a request.
+    </div>
+    <div id="info" class="alert alert-info" style="display: none;">
+      <strong>Info:</strong> The number of translations has been automatically set to 52 (Max).
+    </div>
+    <div id="stuff"></div>
+    <footer class="footer text-center">
+      <p>
+        &copy; Chinmay Pai
+        <script type="text/javascript">
+          document.write(new Date().getFullYear());
+        </script>
+      </p>
+    </footer>
+
+  </div>
+</body>
+
+</html>

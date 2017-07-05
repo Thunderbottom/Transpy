@@ -1,0 +1,20 @@
+﻿{% if translation %}
+
+        {% for i in range(translation|length) %}
+        <div class="jumbotron">
+            <div class=”text”>
+              <h6 class="text-muted">{{ language[i] }} to {{ language[i+1] }}</h6>
+              <h4>{{ translation[i]|forceescape }}</h4>
+              {% if not i + 1 == translation|length %}
+                <h6 class="text-muted">Means "{{ original_lang[i] }}"</h6>
+              {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        <h3 class="text-center">
+          The cosine similarity between the start and the end is:<br/><p class=" {{ color }} ">
+            {{ cos_val }}
+          </p>
+        </h3>
+
+{% endif %}
