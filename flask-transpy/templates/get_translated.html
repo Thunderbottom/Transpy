@@ -5,14 +5,14 @@
   <title>TransPy | Loss of Translation</title>
 
 
-  <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-  <link href="../static/translate.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+  <link href="static/translate.css" rel="stylesheet">
 
   <!-- jquery links -->
-  <script src="../static/js/jquery.min.js"></script>
-  <script src="../static/js/translate.js"></script>
+  <script src="static/js/jquery.min.js"></script>
+  <script src="static/js/translate.js"></script>
 
 </head>
 
@@ -32,7 +32,7 @@
         <input type="name" name="inputString" id="inputString" class="form-control" placeholder="Enter a string to translate" required autofocus>
         <label for="inputIter" class="sr-only">Number of Translations</label>
         <input type="number" name="inputIter" id="inputIter" class="form-control" placeholder="Number of Translations (max. 52)" required>
-        <button id="btnTrans" class="btn btn-lg btn-primary btn-block" type="button" href="{{ url_for('translateText') }}">Translate</button>
+        <button id="btnTrans" class="btn btn-lg btn-primary btn-block" type="button">Translate</button>
       </form>
     </div>
     <div id="loader" style="display: none;"></div>

@@ -14,7 +14,7 @@ $(function() {
       }
       $('#loader').show();
       $.ajax({
-        url: '/translateText',
+        url: '/transpy/translateText',
         data: $('form').serialize(),
         type: 'POST',
         success: function(response) {

@@ -1,11 +1,9 @@
 import random
 import string
 import nltk
-import numpy as np
+
 from googletrans import Translator
 from sklearn.feature_extraction.text import TfidfVectorizer
-from scipy import spatial
-from gensim import models
 
 LANGUAGES = {
     "af": "Afrikaans",
@@ -65,7 +63,7 @@ LANGUAGES = {
 }
 
 # Uncomment if you need punctuation corpora
-# nltk.download('punkt')
+nltk.download('punkt')
 word_stemmer = nltk.stem.porter.PorterStemmer()
 remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
 

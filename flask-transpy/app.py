@@ -29,4 +29,4 @@ def translateText():
         return render_template('response.html', translation=translated_text, original_lang=og_lang_text, language=languages, cos_val=cosineVal, color=text_color)
 
 if __name__ == "__main__":
-    app.run(port=8585)
+    app.run(port=5000)
